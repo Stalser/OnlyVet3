@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import BookingModal from "./BookingModal";
 
 export default function Navbar() {
   return (
@@ -12,16 +11,18 @@ export default function Navbar() {
         </Link>
 
         <nav className="flex items-center gap-4 text-sm text-gray-700">
-          <Link href="/services" className="hover:text-gray-900">
+          <Link href="/services" className="btn-ghost">
             Услуги
           </Link>
-          <Link href="/doctors" className="hover:text-gray-900">
+          <Link href="/doctors" className="btn-ghost">
             Врачи
           </Link>
-          <Link href="/auth/login" className="hover:text-gray-900">
+          <Link href="/auth/login" className="btn-ghost">
             Вход
           </Link>
-          <BookingModal triggerLabel="Записаться" />
+          <Link href="/booking" className="btn btn-primary">
+            Записаться
+          </Link>
         </nav>
       </div>
     </header>
