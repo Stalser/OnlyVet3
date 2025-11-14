@@ -25,10 +25,15 @@ export default function BookingWidget() {
   const [serviceCode, setServiceCode] = useState(initialServiceCode);
   const [date, setDate] = useState("");
   const [slotId, setSlotId] = useState("");
+
+  const [ownerName, setOwnerName] = useState("");       // ФИО клиента
+  const [species, setSpecies] = useState("");           // Вид животного
   const [petName, setPetName] = useState("");
+
   const [email, setEmail] = useState("");
   const [contact, setContact] = useState("");
   const [comment, setComment] = useState("");
+
   const [agreePersonal, setAgreePersonal] = useState(false);
   const [agreeContract, setAgreeContract] = useState(false);
   const [sending, setSending] = useState(false);
@@ -65,7 +70,9 @@ export default function BookingWidget() {
     !!serviceCode &&
     !!date &&
     !!slotId &&
+    ownerName.trim() &&
     petName.trim() &&
+    species.trim() &&
     email.trim() &&
     contact.trim() &&
     agreePersonal &&
@@ -76,7 +83,7 @@ export default function BookingWidget() {
     setDoctorId(id);
     setDate("");
     setSlotId("");
-    // если выбранная услуга не подходит этому врачу — сбрасываем
+    // если выбранная услуга не подходит новому врачу – сбрасываем
     if (serviceCode && doctorServicesMap[id]) {
       const codes = doctorServicesMap[id];
       if (!codes.includes(serviceCode)) {
@@ -93,11 +100,13 @@ export default function BookingWidget() {
     setResult(null);
 
     try {
-      // здесь потом будет реальный запрос в БД / Vetmanager
+      // здесь позже будет реальный запрос в БД / Vetmanager
       await new Promise((resolve) => setTimeout(resolve, 800));
       setResult(
         "Запрос отправлен. Администратор свяжется с вами для подтверждения времени."
       );
+      setOwnerName("");
+      setSpecies("");
       setPetName("");
       setEmail("");
       setContact("");
@@ -213,7 +222,7 @@ export default function BookingWidget() {
         {doctorId && date ? (
           dateSlots.length ? (
             <select
-              className="w-full rounded-xl border border-gray-200 px-3 py-2 text-xs outline-none focus:border-black focus:ring-1 focus:ring-black bg-white"
+              className="w-full rounded-xl border border-gray-200 px-3.py-2 text-xs outline-none.focus:border-black focus:ring-1 focus:ring-black bg-white"
               value={slotId}
               onChange={(e) => setSlotId(e.target.value)}
             >
@@ -236,45 +245,84 @@ export default function BookingWidget() {
         )}
       </div>
 
-      {/* ДАННЫЕ ПАЦИЕНТА */}
+      {/* ДАННЫЕ КЛИЕНТА И ПАЦИЕНТА */}
       <div className="grid gap-3">
+        {/* ФИО клиента */}
         <div className="space-y-1">
-          <label className="block text-xs font-medium text-gray-700">
-            Имя питомца
+          <label className="block text-xs.font-medium text-gray-700">
+            ФИО клиента <span className="text-red-500">*</span>
           </label>
           <input
-            className="w-full rounded-xl border border-gray-200 px-3 py-2 text-xs outline-none focus:border-black focus:ring-1 focus:ring-black"
+            required
+            className="w-full rounded-xl border border-gray-200 px-3.py-2 text-xs outline-none focus:border-black focus:ring-1 focus:ring-black"
+            value={ownerName}
+            onChange={(e) => setOwnerName(e.target.value)}
+            placeholder="Например, Иванова Анна Сергеевна"
+          />
+        </div>
+
+        {/* Вид животного */}
+        <div className="space-y-1">
+          <label className="block text-xs font-medium text-gray-700">
+            Вид животного <span className="text-red-500">*</span>
+          </label>
+          <select
+            required
+            className="w-full rounded-xl border border-gray-200 px-3.py-2 text-xs outline-none.focus:border-black focus:ring-1 focus:ring-black bg-white"
+            value={species}
+            onChange={(e) => setSpecies(e.target.value)}
+          >
+            <option value="">Выберите вид</option>
+            <option value="кошка">Кошка</option>
+            <option value="собака">Собака</option>
+            <option value="другое">Другое животное</option>
+          </select>
+        </div>
+
+        {/* Имя питомца */}
+        <div className="space-y-1">
+          <label className="block text-xs font-medium text-gray-700">
+            Имя питомца <span className="text-red-500">*</span>
+          </label>
+          <input
+            required
+            className="w-full rounded-xl border border-gray-200 px-3.py-2 text-xs outline-none.focus:border-black focus:ring-1 focus:ring-black"
             value={petName}
             onChange={(e) => setPetName(e.target.value)}
             placeholder="Например, Мурзик"
           />
         </div>
 
+        {/* Email */}
         <div className="space-y-1">
           <label className="block text-xs font-medium text-gray-700">
-            Email
+            Email <span className="text-red-500">*</span>
           </label>
           <input
             type="email"
-            className="w-full rounded-xl border border-gray-200 px-3 py-2 text-xs outline-none focus:border-black focus:ring-1 focus:ring-black"
+            required
+            className="w-full rounded-xl border border-gray-200 px-3.py-2 text-xs outline-none.focus:border-black focus:ring-1 focus:ring-black"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="you@example.com"
           />
         </div>
 
+        {/* Контакт для связи */}
         <div className="space-y-1">
           <label className="block text-xs font-medium text-gray-700">
-            Контакт для связи
+            Контакт для связи <span className="text-red-500">*</span>
           </label>
           <input
-            className="w-full rounded-xl border border-gray-200 px-3.py-2 text-xs outline-none focus:border-black focus:ring-1 focus:ring-black"
+            required
+            className="w-full rounded-xl border border-gray-200 px-3.py-2 text-xs outline-none.focus:border-black focus:ring-1 focus:ring-black"
             value={contact}
             onChange={(e) => setContact(e.target.value)}
             placeholder="Телефон или Telegram"
           />
         </div>
 
+        {/* Комментарий */}
         <div className="space-y-1">
           <label className="block text-xs font-medium text-gray-700">
             Комментарий
@@ -302,6 +350,7 @@ export default function BookingWidget() {
             <a
               href="/docs"
               className="text-blue-600 underline underline-offset-2"
+              target="_blank"
             >
               политике конфиденциальности
             </a>
@@ -321,6 +370,7 @@ export default function BookingWidget() {
             <a
               href="/docs"
               className="text-blue-600 underline underline-offset-2"
+              target="_blank"
             >
               договором на оказание услуг
             </a>
@@ -330,7 +380,7 @@ export default function BookingWidget() {
       </div>
 
       {result && (
-        <div className="rounded-xl bg-emerald-50 px-3 py-2 text-[11px] text-emerald-700">
+        <div className="rounded-xl bg-emerald-50 px-3.py-2 text-[11px] text-emerald-700">
           {result}
         </div>
       )}
