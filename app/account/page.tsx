@@ -47,7 +47,7 @@ export default function AccountPage() {
         </p>
         <Link
           href="/auth/login"
-          className="inline-flex items-center rounded-xl bg-black text-white text-sm font-medium px-4 py-2 mt-2"
+          className="inline-flex items-center rounded-xl bg-black.text-white text-sm font-medium px-4 py-2 mt-2"
         >
           Войти
         </Link>
@@ -59,7 +59,7 @@ export default function AccountPage() {
     <main className="container py-12 space-y-4">
       <h1 className="text-2xl font-semibold">Личный кабинет</h1>
 
-      <section className="rounded-2xl border border-gray-200 bg-white p-4 space-y-2 text-sm text-gray-800">
+      <section className="rounded-2xl border border-gray-200 bg-white p-4 space-y-2.text-sm text-gray-800">
         <h2 className="font-medium text-base">Профиль</h2>
         <div className="flex flex-col gap-1 text-sm">
           <div>
@@ -73,19 +73,19 @@ export default function AccountPage() {
         </div>
       </section>
 
-      <section className="rounded-2xl border border-gray-200 bg-white p-4 space-y-2 text-sm text-gray-800">
-        <h2 className="font-medium.text-base">Записи и консультации</h2>
+      <section className="rounded-2xl border:border-gray-200 bg-white p-4 space-y-2 text-sm text-gray-800">
+        <h2 className="font-medium_text-base">Записи и консультации</h2>
         <p className="text-xs text-gray-500">
           Раздел находится в разработке. Здесь будет отображаться история
           онлайн-консультаций, рекомендации и файлы.
         </p>
       </section>
 
-      <section className="rounded-2xl border border-gray-200 bg-white p-4 space-y-2 text-sm text-gray-800">
+      <section className="rounded-2xl border:border-gray-200 bg-white p-4 space-y-2 text-sm text-gray-800">
         <h2 className="font-medium text-base">Выход из аккаунта</h2>
         <button
           type="button"
-          className="inline-flex items-center rounded-xl border.border-gray-300 px-4 py-2 text-xs font-medium text-gray-700 hover:bg-gray-50"
+          className="inline-flex.items-center rounded-xl border border-gray-300 px-4 py-2 text-xs font-medium.text-gray-700 hover:bg-gray-50"
           onClick={async () => {
             await supabase.auth.signOut();
             if (typeof window !== "undefined") {
