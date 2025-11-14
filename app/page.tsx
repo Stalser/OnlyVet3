@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import BookingModal from "../components/BookingModal";
 import Doctors from "../components/Doctors";
 import ReviewsHome from "../components/ReviewsHome";
 
@@ -9,7 +8,7 @@ export default function HomePage() {
   return (
     <main className="flex flex-col">
 
-      {/* HERO */}
+      {/* ================= HERO ================= */}
       <section className="bg-white pt-20 pb-16">
         <div className="container grid lg:grid-cols-2 gap-10 items-center">
           <div>
@@ -18,15 +17,21 @@ export default function HomePage() {
             </h1>
 
             <p className="mt-4 text-gray-600 text-lg max-w-xl">
-              Онлайн-консультации ветеринарных врачей 24/7.<br />
-              Поможем с диагнозом, лечением и интерпретацией анализов.
+              Онлайн-консультации ветеринарных врачей 24/7.  
+              Поможем вам с диагнозом, лечением и интерпретацией анализов.
             </p>
 
             <div className="mt-6 flex flex-wrap gap-4">
-              <BookingModal triggerLabel="Записаться онлайн" />
+              <Link
+                href="/booking"
+                className="rounded-xl px-6 py-3 bg-black text-white text-sm font-medium hover:bg-gray-900"
+              >
+                Записаться онлайн
+              </Link>
+
               <Link
                 href="/services"
-                className="rounded-xl px-5 py-3 text-sm font-medium border border-gray-300 bg-white hover:bg-gray-50"
+                className="rounded-xl px-6 py-3 text-sm font-medium border border-gray-300 bg-white hover:bg-gray-50"
               >
                 Услуги и цены
               </Link>
@@ -47,44 +52,14 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ПРЕИМУЩЕСТВА */}
-      <section className="bg-slate-50 py-16">
-        <div className="container">
-          <h2 className="text-3xl font-semibold text-center mb-10">
-            Почему владельцы выбирают OnlyVet
-          </h2>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="rounded-2xl bg-white p-6 shadow-sm border border-gray-100">
-              <h3 className="font-semibold text-lg mb-2">Ответ за 5–10 минут</h3>
-              <p className="text-sm text-gray-600">
-                Врач быстро оценит состояние питомца и скажет, требуется ли срочная помощь.
-              </p>
-            </div>
-
-            <div className="rounded-2xl bg-white p-6 shadow-sm border border-gray-100">
-              <h3 className="font-semibold text-lg mb-2">Разбор анализов</h3>
-              <p className="text-sm text-gray-600">
-                Загрузите фото анализов — врач объяснит результаты и подскажет план действий.
-              </p>
-            </div>
-
-            <div className="rounded-2xl bg-white p-6 shadow-sm border border-gray-100">
-              <h3 className="font-semibold text-lg mb-2">Второе мнение</h3>
-              <p className="text-sm text-gray-600">
-                Подтверждение диагноза, подбор лечения, разбор сложных случаев.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* УСЛУГИ И ЦЕНЫ — перенесён выше */}
+      {/* ================= УСЛУГИ И ЦЕНЫ ================= */}
       <section className="bg-slate-50 py-16">
         <div className="container space-y-4 text-center">
           <h2 className="text-3xl font-semibold">Услуги и цены</h2>
+
           <p className="text-gray-600 max-w-xl mx-auto">
-            Консультации, разбор анализов, второе мнение — быстро и удобно.
+            Онлайн-консультации, разбор анализов, второе мнение —  
+            всё в одном сервисе, быстро и удобно.
           </p>
 
           <Link
@@ -96,15 +71,18 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ВРАЧИ */}
+      {/* ================= ВРАЧИ ONLYVET ================= */}
       <section className="bg-white py-16">
-        <Doctors />
+        <div className="container">
+          <h2 className="text-3xl font-semibold mb-8">Врачи OnlyVet</h2>
+          <Doctors />
+        </div>
       </section>
 
-      {/* ОТЗЫВЫ */}
+      {/* ================= ОТЗЫВЫ ================= */}
       <ReviewsHome />
 
-      {/* НИЖНИЙ CTA */}
+      {/* ================= НИЖНИЙ CTA ================= */}
       <section className="bg-white py-20">
         <div className="container flex flex-col items-center text-center">
           <h2 className="text-3xl font-semibold max-w-2xl leading-tight">
@@ -113,11 +91,17 @@ export default function HomePage() {
           </h2>
 
           <p className="text-gray-600 max-w-xl mt-3">
-            Описывайте проблему, прикрепляйте фото — дежурный врач быстро подскажет, что делать.
+            Достаточно описать проблему и прикрепить фото.  
+            Дежурный врач быстро подскажет, что делать дальше.
           </p>
 
           <div className="mt-6">
-            <BookingModal triggerLabel="Начать консультацию" />
+            <Link
+              href="/booking"
+              className="rounded-xl px-6 py-3 bg-black text-white text-sm font-medium hover:bg-gray-900"
+            >
+              Начать консультацию
+            </Link>
           </div>
         </div>
       </section>
