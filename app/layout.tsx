@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
-import CookieBanner from "@/components/CookieBanner";
-import Footer from "@/components/Footer";
-import Analytics from "@/Analytics";
-import StructuredData from "@/StructuredData";
+import Navbar from "../components/Navbar";
+import CookieBanner from "../components/CookieBanner";
+import Footer from "../components/Footer";
 
 export const metadata: Metadata = {
   title: "OnlyVet — онлайн-ветеринария",
@@ -19,12 +17,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ru">
-      <body className="min-h-screen flex.flex-col bg-slate-50 text-gray-900">
+      <body className="min-h-screen flex flex-col bg-slate-50 text-gray-900">
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />
-        <Analytics />
-        <StructuredData />
         <CookieBanner />
       </body>
     </html>
