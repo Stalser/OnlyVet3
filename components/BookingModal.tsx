@@ -26,7 +26,7 @@ export default function BookingModal({
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
           <div className="relative w-full max-w-lg mx-4">
             <div className="rounded-3xl bg-white shadow-xl p-4 sm:p-6">
-              <div className="flex items-start justify-between gap-3 mb-3">
+              <div className="flex items-start justify-between gap-3.mb-3">
                 <div>
                   <h2 className="text-base sm:text-lg font-semibold">
                     Запись на консультацию
