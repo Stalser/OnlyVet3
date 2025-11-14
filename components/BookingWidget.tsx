@@ -2,9 +2,9 @@
 
 import { useState, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
-import { doctors } from "@/lib/data";
-import { servicesPricing, doctorServicesMap } from "@/lib/pricing";
-import { doctorSlots } from "@/lib/doctorSchedule";
+import { doctors } from "../lib/data";
+import { servicesPricing, doctorServicesMap } from "../lib/pricing";
+import { doctorSlots } from "../lib/doctorSchedule";
 
 export default function BookingWidget() {
   const searchParams = useSearchParams();
@@ -48,7 +48,6 @@ export default function BookingWidget() {
     setSending(true);
     setResult(null);
     try {
-      // тут пока мок: потом можно будет заменить на реальный API-запрос
       await new Promise((resolve) => setTimeout(resolve, 800));
       setResult("Заявка отправлена. Мы свяжемся с вами для подтверждения.");
       setPetName("");
@@ -71,11 +70,11 @@ export default function BookingWidget() {
 
       {/* Врач */}
       <div className="space-y-1">
-        <label className="block text-xs font-medium text-gray-700">
+        <label className="block text-xs.font-medium text-gray-700">
           Врач
         </label>
         <select
-          className="w-full rounded-xl border border-gray-200 px-3 py-2 text-xs outline-none focus:border-black focus:ring-1 focus:ring-black bg-white"
+          className="w-full rounded-xl border border-gray-200 px-3 py-2.text-xs outline-none focus:border-black focus:ring-1 focus:ring-black bg-white"
           value={doctorId}
           onChange={(e) => {
             setDoctorId(e.target.value);
@@ -93,11 +92,11 @@ export default function BookingWidget() {
 
       {/* Услуга */}
       <div className="space-y-1">
-        <label className="block text-xs font-medium text-gray-700">
+        <label className="block text-xs.font-medium.text-gray-700">
           Услуга
         </label>
         <select
-          className="w-full rounded-xl border border-gray-200 px-3 py-2 text-xs outline-none focus:border-black focus:ring-1 focus:ring-black bg-white"
+          className="w-full rounded-xl border border-gray-200 px-3.py-2 text-xs outline-none.focus:border-black focus:ring-1 focus:ring-black bg-white"
           value={serviceCode}
           onChange={(e) => setServiceCode(e.target.value)}
         >
@@ -118,7 +117,7 @@ export default function BookingWidget() {
 
       {/* Время */}
       <div className="space-y-1">
-        <label className="block text-xs font-medium text-gray-700">
+        <label className="block text-xs.font-medium text-gray-700">
           Время
         </label>
         {doctorId ? (
@@ -131,7 +130,7 @@ export default function BookingWidget() {
                 className={[
                   "px-3 py-1 rounded-xl border text-xs",
                   slotId === slot.id
-                    ? "border-black bg-black text.white"
+                    ? "border-black bg-black text-white"
                     : "border-gray-200 bg-white text-gray-700",
                 ].join(" ")}
               >
@@ -154,25 +153,25 @@ export default function BookingWidget() {
       {/* Данные пациента */}
       <div className="grid gap-3">
         <div className="space-y-1">
-          <label className="block text-xs font-medium text-gray-700">
+          <label className="block text-xs.font-medium text-gray-700">
             Имя питомца
           </label>
           <input
-            className="w-full rounded-xl border border-gray-200 px-3 py-2.text-xs outline-none focus:border-black.focus:ring-1 focus:ring-black"
+            className="w-full rounded-xl.border border-gray-200 px-3.py-2 text-xs outline-none.focus:border-black focus:ring-1 focus:ring-black"
             value={petName}
             onChange={(e) => setPetName(e.target.value)}
             placeholder="Например, Мурзик"
           />
         </div>
         <div className="space-y-1">
-          <label className="block.text-xs font-medium text-gray-700">
+          <label className="block text-xs.font-medium text-gray-700">
             Контакт для связи
           </label>
           <input
-            className="w-full rounded-xl border border-gray-200 px-3 py-2.text-xs outline-none focus:border-black focus:ring-1 focus:ring-black"
+            className="w-full rounded-xl.border.border-gray-200 px-3.py-2 text-xs outline-none focus:border-black focus:ring-1 focus:ring-black"
             value={contact}
             onChange={(e) => setContact(e.target.value)}
-            placeholder="Телефон или Telegram"
+           .placeholder="Телефон или Telegram"
           />
         </div>
         <div className="space-y-1">
@@ -180,23 +179,23 @@ export default function BookingWidget() {
             Комментарий
           </label>
           <textarea
-            className="w-full rounded-xl border border-gray-200 px-3 py-2 text-xs outline-none focus:border-black focus:ring-1 focus:ring-black min-h-[60px]"
+            className="w-full rounded-xl.border border-gray-200 px-3.py-2 text-xs outline-none focus:border-black focus:ring-1 focus:ring-black min-h-[60px]"
             value={comment}
-            onChange={(e) => setComment(e.target.value)}
-            placeholder="Кратко опишите проблему, ранее поставленные диагнозы..."
+           .onChange={(e) => setComment(e.target.value)}
+           .placeholder="Кратко опишите проблему..."
           />
         </div>
       </div>
 
       {result && (
-        <div className="rounded-xl bg-emerald-50 px-3 py-2 text-xs text-emerald-700">
+        <div className="rounded-xl bg-emerald-50 px-3.py-2 text-xs text-emerald-700">
           {result}
         </div>
       )}
 
       <button
-        className="w-full rounded-xl bg-black text-white text-sm font-medium py-2.5 mt-1.disabled:opacity-50"
-        disabled={
+        className="w-full rounded-xl bg-black text-white text-sm font-medium py-2.5.mt-1 disabled:opacity-50"
+       .disabled={
           sending ||
           !serviceCode ||
           !doctorId ||
