@@ -1,38 +1,40 @@
 "use client";
 
 import Link from "next/link";
+import BookingModal from "../components/BookingModal";
 import Doctors from "../components/Doctors";
 import ReviewsHome from "../components/ReviewsHome";
 
 export default function HomePage() {
   return (
     <main className="flex flex-col">
-      {/* HERO */}
+
+      {/* ===================== HERO ===================== */}
       <section className="bg-white pt-20 pb-16">
         <div className="container grid lg:grid-cols-2 gap-10 items-center">
+
           <div>
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
               Мы рядом, даже когда <br /> врач далеко
             </h1>
 
             <p className="mt-4 text-gray-600 text-lg max-w-xl">
-              Онлайн-консультации ветеринарных врачей 24/7.
+              Онлайн-консультации ветеринарных врачей 24/7.  
               Поможем вам с диагнозом, лечением и интерпретацией анализов.
             </p>
 
             <div className="mt-6 flex flex-wrap gap-4">
-              <Link href="/booking" className="btn btn-primary">
-                Записаться онлайн
-              </Link>
+              <BookingModal triggerLabel="Записаться онлайн" />
+
               <Link
                 href="/services"
-                className="btn btn-outline"
+                className="rounded-xl px-5 py-3 text-sm font-medium border border-gray-300 bg-white hover:bg-gray-50"
               >
                 Услуги и цены
               </Link>
             </div>
 
-            <p className="mt-4 text-xs text-gray-500">
+            <p className="mt-4 text-xs text-gray-500 max-w-xs">
               Не заменяет экстренную помощь. При угрозе жизни — срочно в клинику.
             </p>
           </div>
@@ -47,7 +49,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ПРЕИМУЩЕСТВА */}
+      {/* ===================== ПРЕИМУЩЕСТВА ===================== */}
       <section className="bg-slate-50 py-16">
         <div className="container">
           <h2 className="text-3xl font-semibold text-center mb-10">
@@ -55,55 +57,47 @@ export default function HomePage() {
           </h2>
 
           <div className="grid md:grid-cols-3 gap-8">
-            <div className="card p-6">
+
+            <div className="rounded-2xl bg-white p-6 shadow-sm border border-gray-100">
               <h3 className="font-semibold text-lg mb-2">Ответ за 5–10 минут</h3>
               <p className="text-sm text-gray-600">
-                Врач быстро оценит состояние питомца и скажет,
-                требуется ли срочная помощь или можно лечить дома.
+                Врач быстро оценит состояние питомца и скажет, требуется ли срочная помощь или можно лечить дома.
               </p>
             </div>
 
-            <div className="card p-6">
+            <div className="rounded-2xl bg-white p-6 shadow-sm border border-gray-100">
               <h3 className="font-semibold text-lg mb-2">Разбор анализов</h3>
               <p className="text-sm text-gray-600">
-                Загрузите фото анализов, врач подробно объяснит результаты
-                и подскажет корректный план действий.
+                Загрузите фото анализов — врач подробно объяснит результаты.
               </p>
             </div>
 
-            <div className="card p-6">
+            <div className="rounded-2xl bg-white p-6 shadow-sm border border-gray-100">
               <h3 className="font-semibold text-lg mb-2">Второе мнение</h3>
               <p className="text-sm text-gray-600">
-                Подтверждение диагноза, подбор лечения, оценка УЗИ/рентгена,
-                разбор сложных случаев.
+                Подтверждение диагноза, подбор лечения, разбор УЗИ/рентгена, сложные случаи.
               </p>
             </div>
+
           </div>
         </div>
       </section>
 
-      {/* ВРАЧИ */}
-      <section className="bg-white">
-        <Doctors />
-      </section> 
-            {/* ВРАЧИ */}
+      {/* ===================== ВРАЧИ ===================== */}
       <section className="bg-white">
         <Doctors />
       </section>
 
-      {/* ОТЗЫВЫ */}
+      {/* ===================== ОТЗЫВЫ ===================== */}
       <ReviewsHome />
 
-      {/* CTA / УСЛУГИ */}
-      <section className="bg-slate-50 py-16">
-        ...
-        
-      {/* CTA / УСЛУГИ */}
+      {/* ===================== CTA / УСЛУГИ ===================== */}
       <section className="bg-slate-50 py-16">
         <div className="container space-y-4 text-center">
           <h2 className="text-3xl font-semibold">Услуги и цены</h2>
+
           <p className="text-gray-600 max-w-xl mx-auto">
-            Онлайн-консультации, разбор анализов, второе мнение —
+            Онлайн-консультации, разбор анализов, второе мнение —  
             всё в одном сервисе, быстро и удобно.
           </p>
 
@@ -116,25 +110,25 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* НИЖНИЙ CTA */}
+      {/* ===================== НИЖНИЙ CTA ===================== */}
       <section className="bg-white py-20">
-        <div className="container flex flex-col.items-center text-center">
+        <div className="container flex flex-col items-center text-center">
           <h2 className="text-3xl font-semibold max-w-2xl leading-tight">
-            Нужна помощь ветеринара? Начните консультацию прямо сейчас.
+            Нужна помощь ветеринара?  
+            Начните консультацию прямо сейчас.
           </h2>
 
           <p className="text-gray-600 max-w-xl mt-3">
-            Достаточно описать проблему и прикрепить фото.
+            Достаточно описать проблему и прикрепить фото.  
             Дежурный врач быстро подскажет, что делать дальше.
           </p>
 
           <div className="mt-6">
-            <Link href="/booking" className="btn btn-primary">
-              Начать консультацию
-            </Link>
+            <BookingModal triggerLabel="Начать консультацию" />
           </div>
         </div>
       </section>
+
     </main>
   );
 }
