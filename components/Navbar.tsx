@@ -17,6 +17,9 @@ export default function Navbar() {
           <Link href="/doctors" className="btn-ghost">
             Врачи
           </Link>
+          <Link href="/docs" className="btn-ghost">
+            Документы
+          </Link>
           <Link href="/auth/login" className="btn-ghost">
             Вход
           </Link>
