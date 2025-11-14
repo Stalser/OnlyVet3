@@ -85,8 +85,19 @@ export default function HomePage() {
       {/* ВРАЧИ */}
       <section className="bg-white">
         <Doctors />
+      </section> 
+            {/* ВРАЧИ */}
+      <section className="bg-white">
+        <Doctors />
       </section>
 
+      {/* ОТЗЫВЫ */}
+      <ReviewsHome />
+
+      {/* CTA / УСЛУГИ */}
+      <section className="bg-slate-50 py-16">
+        ...
+        
       {/* CTA / УСЛУГИ */}
       <section className="bg-slate-50 py-16">
         <div className="container space-y-4 text-center">
