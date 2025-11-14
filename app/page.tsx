@@ -8,7 +8,7 @@ export default function HomePage() {
   return (
     <main className="flex flex-col">
 
-      {/* ================= HERO ================= */}
+      {/* HERO */}
       <section className="bg-white pt-20 pb-16">
         <div className="container grid lg:grid-cols-2 gap-10 items-center">
           <div>
@@ -22,6 +22,7 @@ export default function HomePage() {
             </p>
 
             <div className="mt-6 flex flex-wrap gap-4">
+              {/* КНОПКА → СТРАНИЦА /booking */}
               <Link
                 href="/booking"
                 className="rounded-xl px-6 py-3 bg-black text-white text-sm font-medium hover:bg-gray-900"
@@ -52,16 +53,14 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ================= УСЛУГИ И ЦЕНЫ ================= */}
+      {/* УСЛУГИ И ЦЕНЫ */}
       <section className="bg-slate-50 py-16">
         <div className="container space-y-4 text-center">
           <h2 className="text-3xl font-semibold">Услуги и цены</h2>
-
           <p className="text-gray-600 max-w-xl mx-auto">
             Онлайн-консультации, разбор анализов, второе мнение —  
             всё в одном сервисе, быстро и удобно.
           </p>
-
           <Link
             href="/services"
             className="inline-block rounded-xl px-6 py-3 bg-black text-white text-sm font-medium hover:bg-gray-900"
@@ -71,7 +70,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ================= ВРАЧИ ONLYVET ================= */}
+      {/* ВРАЧИ */}
       <section className="bg-white py-16">
         <div className="container">
           <h2 className="text-3xl font-semibold mb-8">Врачи OnlyVet</h2>
@@ -79,10 +78,10 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ================= ОТЗЫВЫ ================= */}
+      {/* ОТЗЫВЫ */}
       <ReviewsHome />
 
-      {/* ================= НИЖНИЙ CTA ================= */}
+      {/* НИЖНИЙ CTA */}
       <section className="bg-white py-20">
         <div className="container flex flex-col items-center text-center">
           <h2 className="text-3xl font-semibold max-w-2xl leading-tight">
@@ -96,6 +95,7 @@ export default function HomePage() {
           </p>
 
           <div className="mt-6">
+            {/* И ЗДЕСЬ ТОЖЕ → /booking */}
             <Link
               href="/booking"
               className="rounded-xl px-6 py-3 bg-black text-white text-sm font-medium hover:bg-gray-900"
