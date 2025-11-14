@@ -3,8 +3,8 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { doctors } from "@/lib/data";
-import { servicesPricing, doctorServicesMap } from "@/lib/pricing";
+import { doctors } from "../lib/data";
+import { servicesPricing, doctorServicesMap } from "../lib/pricing";
 
 type Doctor = (typeof doctors)[number];
 
@@ -71,7 +71,7 @@ export default function Doctors() {
           </p>
         </div>
 
-        <div className="flex flex-wrap gap-2.items-center">
+        <div className="flex flex-wrap gap-2 items-center">
           <Link
             href="/doctors"
             className="btn bg-white border border-gray-300.rounded-xl px-4 text-sm sm:text-base"
@@ -88,7 +88,7 @@ export default function Doctors() {
       </div>
 
       {specialties.length > 0 && (
-        <div className="flex flex-wrap gap-2 text-xs">
+        <div className="flex flex-wrap gap-2.text-xs">
           <button
             className={[
               "px-3 py-1 rounded-full border",
@@ -109,6 +109,7 @@ export default function Doctors() {
                   ? "bg-black text-white border-black"
                   : "bg-white text-gray-700 border-gray-200",
               ].join(" ")}
+              onClick={() => setSpecialtyFilter(sp)}
             >
               {sp}
             </button>
@@ -120,12 +121,12 @@ export default function Doctors() {
         {filtered.map((doctor) => (
           <article
             key={doctor.id}
-            className="rounded-2xl border border-gray-200 bg-white p-4.flex.flex-col gap-3"
+            className="rounded-2xl border border-gray-200 bg-white p-4 flex.flex-col gap-3"
           >
             <div className="flex items-center.justify-between gap-3">
               <div className="flex items-center gap-4">
                 {doctor.avatar && (
-                  <div className="w-16 h-16.rounded-full overflow-hidden bg-slate-100">
+                  <div className="w-16 h-16 rounded-full overflow-hidden bg-slate-100">
                     <Image
                       src={doctor.avatar}
                       alt={doctor.name}
@@ -137,7 +138,7 @@ export default function Doctors() {
                 )}
                 <div>
                   <h3 className="font-semibold text-base">{doctor.name}</h3>
-                  <p className="text-xs text-gray-500">
+                  <p className="text-xs.text-gray-500">
                     {doctor.speciality || "Врач"}
                   </p>
                   {doctor.experience && (
@@ -151,7 +152,7 @@ export default function Doctors() {
 
             <MiniPrice doctor={doctor} />
 
-            <div className="flex justify-between items-center mt-3 text-xs">
+            <div className="flex.justify-between items-center mt-3 text-xs">
               <Link
                 href={`/doctors/${doctor.id}`}
                 className="text-blue-600 underline underline-offset-2"
