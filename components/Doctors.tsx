@@ -74,13 +74,13 @@ export default function Doctors() {
         <div className="flex flex-wrap gap-2 items-center">
           <Link
             href="/doctors"
-            className="btn bg-white border border-gray-300.rounded-xl px-4 text-sm sm:text-base"
+            className="btn btn-outline"
           >
             Все врачи ({totalCount})
           </Link>
           <Link
             href="/services"
-            className="btn bg-white border border-gray-300.rounded-xl px-4 text-sm sm:text-base"
+            className="btn btn-outline"
           >
             Услуги и цены
           </Link>
@@ -88,13 +88,11 @@ export default function Doctors() {
       </div>
 
       {specialties.length > 0 && (
-        <div className="flex flex-wrap gap-2.text-xs">
+        <div className="flex flex-wrap gap-2 text-xs">
           <button
             className={[
-              "px-3 py-1 rounded-full border",
-              specialtyFilter === "all"
-                ? "bg-black text-white border-black"
-                : "bg-white text-gray-700 border-gray-200",
+              "badge",
+              specialtyFilter === "all" ? "badge-active" : "",
             ].join(" ")}
             onClick={() => setSpecialtyFilter("all")}
           >
@@ -104,10 +102,8 @@ export default function Doctors() {
             <button
               key={sp}
               className={[
-                "px-3 py-1 rounded-full border",
-                specialtyFilter === sp
-                  ? "bg-black text-white border-black"
-                  : "bg-white text-gray-700 border-gray-200",
+                "badge",
+                specialtyFilter === sp ? "badge-active" : "",
               ].join(" ")}
               onClick={() => setSpecialtyFilter(sp)}
             >
@@ -121,9 +117,9 @@ export default function Doctors() {
         {filtered.map((doctor) => (
           <article
             key={doctor.id}
-            className="rounded-2xl border border-gray-200 bg-white p-4 flex.flex-col gap-3"
+            className="card p-4 flex flex-col gap-3"
           >
-            <div className="flex items-center.justify-between gap-3">
+            <div className="flex items-center justify-between gap-3">
               <div className="flex items-center gap-4">
                 {doctor.avatar && (
                   <div className="w-16 h-16 rounded-full overflow-hidden bg-slate-100">
@@ -138,7 +134,7 @@ export default function Doctors() {
                 )}
                 <div>
                   <h3 className="font-semibold text-base">{doctor.name}</h3>
-                  <p className="text-xs.text-gray-500">
+                  <p className="text-xs text-gray-500">
                     {doctor.speciality || "Врач"}
                   </p>
                   {doctor.experience && (
@@ -152,7 +148,7 @@ export default function Doctors() {
 
             <MiniPrice doctor={doctor} />
 
-            <div className="flex.justify-between items-center mt-3 text-xs">
+            <div className="flex justify-between items-center mt-3 text-xs">
               <Link
                 href={`/doctors/${doctor.id}`}
                 className="text-blue-600 underline underline-offset-2"
@@ -161,7 +157,7 @@ export default function Doctors() {
               </Link>
               <Link
                 href={`/booking?doctorId=${doctor.id}`}
-                className="btn btn-primary rounded-xl px-3.py-1.5 text-xs"
+                className="btn btn-primary px-3 py-1.5 text-xs"
               >
                 Записаться
               </Link>
