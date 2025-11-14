@@ -1,6 +1,6 @@
 "use client";
 
-import BookingModal from "@/components/BookingModal";
+import BookingModal from "./BookingModal";
 
 type BookingTriggerProps = {
   label?: string;
