@@ -2,20 +2,41 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Базовый фон и текст */
+/* Базовая типографика и фон */
+
 html,
 body {
   padding: 0;
   margin: 0;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     sans-serif;
-  background-color: #f9fafb; /* светлый фон */
-  color: #111827;            /* тёмный текст */
+  background-color: #f9fafb;
+  color: #111827;
 }
 
-/* Контейнер, как на макетах */
+/* Контейнер под макет (совпадает с тем, что мы используем в JSX через className="container") */
+
 .container {
   max-width: 1024px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+/* Для body в RootLayout уже есть классы, но добавляем страховочное */
+
+body {
+  min-height: 100vh;
+}
+
+/* Доп. украшательства — можно будет докрутить */
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
 }
