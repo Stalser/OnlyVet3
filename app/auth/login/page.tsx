@@ -13,6 +13,14 @@ export default function AuthLoginPage() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
+
+    if (!supabase) {
+      setError(
+        "Авторизация временно недоступна: Supabase не сконфигурирован на сервере."
+      );
+      return;
+    }
+
     setPending(true);
 
     try {
@@ -97,24 +105,6 @@ export default function AuthLoginPage() {
               {pending ? "Входим..." : "Войти"}
             </button>
           </form>
-
-          <div className="mt-4 flex items-center justify-between text-[11px] text-gray-500">
-            <button
-              type="button"
-              className="underline underline-offset-2 hover:text-gray-800"
-              onClick={() =>
-                alert("Функцию восстановления пароля подключим позже.")
-              }
-            >
-              Забыли пароль?
-            </button>
-            <span>
-              Нет аккаунта?{" "}
-              <span className="text-gray-800">
-                Запросите доступ у администратора клиники.
-              </span>
-            </span>
-          </div>
         </div>
 
         <p className="mt-4 text-[11px] text-gray-500 text-center">
