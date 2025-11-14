@@ -19,7 +19,7 @@ function MiniPrice({ doctor }: { doctor: Doctor }) {
       <div className="font-semibold mb-1">Основные услуги:</div>
       <ul className="space-y-0.5">
         {items.map((s) => (
-          <li key={s.code} className="flex justify-between.gap-2">
+          <li key={s.code} className="flex justify-between gap-2">
             <span className="opacity-80">{s.name}</span>
             <span className="font-semibold">
               {s.priceRUB !== undefined
@@ -60,27 +60,27 @@ export default function Doctors() {
 
   return (
     <section className="container py-12 sm:py-16 space-y-6">
-      <div className="flex.items-end justify-between gap-3 flex-wrap">
+      <div className="flex items-end justify-between gap-3 flex-wrap">
         <div>
-          <h2.className="text-2xl sm:text-3xl font-semibold">
+          <h2 className="text-2xl sm:text-3xl font-semibold">
             Врачи OnlyVet
           </h2>
-          <p className="opacity-80 text-sm sm:text-base max-w-xl.mt-1">
+          <p className="opacity-80 text-sm sm:text-base max-w-xl mt-1">
             Выберите врача по специализации. В мини-прайсе указаны основные
             услуги, которые он оказывает.
           </p>
         </div>
 
-        <div className="flex flex-wrap gap-2 items-center">
+        <div className="flex flex-wrap gap-2.items-center">
           <Link
             href="/doctors"
-            className="btn bg-white border border-gray-300 rounded-xl px-4.text-sm sm:text-base"
+            className="btn bg-white border border-gray-300.rounded-xl px-4 text-sm sm:text-base"
           >
             Все врачи ({totalCount})
           </Link>
           <Link
             href="/services"
-            className="btn bg-white border:border-gray-300 rounded-xl px-4.text-sm sm:text-base"
+            className="btn bg-white border border-gray-300.rounded-xl px-4 text-sm sm:text-base"
           >
             Услуги и цены
           </Link>
@@ -88,10 +88,10 @@ export default function Doctors() {
       </div>
 
       {specialties.length > 0 && (
-        <div className="flex flex-wrap gap-2.text-xs">
+        <div className="flex flex-wrap gap-2 text-xs">
           <button
             className={[
-              "px-3 py-1.rounded-full border",
+              "px-3 py-1 rounded-full border",
               specialtyFilter === "all"
                 ? "bg-black text-white border-black"
                 : "bg-white text-gray-700 border-gray-200",
@@ -109,7 +109,6 @@ export default function Doctors() {
                   ? "bg-black text-white border-black"
                   : "bg-white text-gray-700 border-gray-200",
               ].join(" ")}
-              onClick={() => setSpecialtyFilter(sp)}
             >
               {sp}
             </button>
@@ -121,12 +120,12 @@ export default function Doctors() {
         {filtered.map((doctor) => (
           <article
             key={doctor.id}
-            className="rounded-2xl border border-gray-200 bg-white p-4 flex.flex-col gap-3"
+            className="rounded-2xl border border-gray-200 bg-white p-4.flex.flex-col gap-3"
           >
-            <div className="flex items-center justify-between gap-3">
+            <div className="flex items-center.justify-between gap-3">
               <div className="flex items-center gap-4">
                 {doctor.avatar && (
-                  <div className="w-16 h-16 rounded-full overflow-hidden bg-slate-100">
+                  <div className="w-16 h-16.rounded-full overflow-hidden bg-slate-100">
                     <Image
                       src={doctor.avatar}
                       alt={doctor.name}
@@ -137,12 +136,12 @@ export default function Doctors() {
                   </div>
                 )}
                 <div>
-                  <h3 className="font-semibold.text-base">{doctor.name}</h3>
+                  <h3 className="font-semibold text-base">{doctor.name}</h3>
                   <p className="text-xs text-gray-500">
                     {doctor.speciality || "Врач"}
                   </p>
                   {doctor.experience && (
-                    <p className="text-[11px] text-gray-500.mt-0.5">
+                    <p className="text-[11px] text-gray-500 mt-0.5">
                       {doctor.experience}
                     </p>
                   )}
@@ -152,7 +151,7 @@ export default function Doctors() {
 
             <MiniPrice doctor={doctor} />
 
-            <div className="flex justify-between items-center mt-3.text-xs">
+            <div className="flex justify-between items-center mt-3 text-xs">
               <Link
                 href={`/doctors/${doctor.id}`}
                 className="text-blue-600 underline underline-offset-2"
@@ -161,7 +160,7 @@ export default function Doctors() {
               </Link>
               <Link
                 href={`/booking?doctorId=${doctor.id}`}
-                className="btn btn-primary rounded-xl px-3 py-1.5 text-xs"
+                className="btn btn-primary rounded-xl px-3.py-1.5 text-xs"
               >
                 Записаться
               </Link>
