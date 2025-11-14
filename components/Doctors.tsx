@@ -1,1 +1,2 @@
-<PASTE CONTENT FROM PREVIOUS DOCTORS MESSAGE>
+
+export default function Doctors(){return <div>Doctors placeholder</div>}

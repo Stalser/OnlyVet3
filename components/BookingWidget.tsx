@@ -1,1 +1,2 @@
-<PASTE CONTENT FROM PREVIOUS BOOKINGWIDGET MESSAGE>
+
+export default function BookingWidget(){return <div>BookingWidget placeholder</div>}

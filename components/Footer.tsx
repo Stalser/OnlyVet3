@@ -1,1 +1,2 @@
-<PASTE CONTENT FROM PREVIOUS FOOTER MESSAGE>
+
+export default function Footer(){return <footer className='py-10 text-center'>Footer</footer>}
