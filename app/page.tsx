@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import BookingModal from "../components/BookingModal";
 import Doctors from "../components/Doctors";
 
 export default function HomePage() {
@@ -21,10 +20,12 @@ export default function HomePage() {
             </p>
 
             <div className="mt-6 flex flex-wrap gap-4">
-              <BookingModal triggerLabel="Записаться онлайн" />
+              <Link href="/booking" className="btn btn-primary">
+                Записаться онлайн
+              </Link>
               <Link
                 href="/services"
-                className="rounded-xl px-5 py-3 text-sm font-medium border border-gray-300 bg-white hover:bg-gray-50"
+                className="btn btn-outline"
               >
                 Услуги и цены
               </Link>
@@ -53,7 +54,7 @@ export default function HomePage() {
           </h2>
 
           <div className="grid md:grid-cols-3 gap-8">
-            <div className="rounded-2xl bg-white p-6 shadow-sm border border-gray-100">
+            <div className="card p-6">
               <h3 className="font-semibold text-lg mb-2">Ответ за 5–10 минут</h3>
               <p className="text-sm text-gray-600">
                 Врач быстро оценит состояние питомца и скажет,
@@ -61,7 +62,7 @@ export default function HomePage() {
               </p>
             </div>
 
-            <div className="rounded-2xl bg-white p-6 shadow-sm border border-gray-100">
+            <div className="card p-6">
               <h3 className="font-semibold text-lg mb-2">Разбор анализов</h3>
               <p className="text-sm text-gray-600">
                 Загрузите фото анализов, врач подробно объяснит результаты
@@ -69,9 +70,9 @@ export default function HomePage() {
               </p>
             </div>
 
-            <div className="rounded-2xl bg-white p-6 shadow-sm border border-gray-100">
-              <h3 className="font-semibold.text-lg mb-2">Второе мнение</h3>
-              <p className="text-sm.text-gray-600">
+            <div className="card p-6">
+              <h3 className="font-semibold text-lg mb-2">Второе мнение</h3>
+              <p className="text-sm text-gray-600">
                 Подтверждение диагноза, подбор лечения, оценка УЗИ/рентгена,
                 разбор сложных случаев.
               </p>
@@ -105,10 +106,9 @@ export default function HomePage() {
 
       {/* НИЖНИЙ CTA */}
       <section className="bg-white py-20">
-        <div className="container flex flex-col items-center text-center">
-          <h2 className="text-3xl font-semibold max-w-2xl.leading-tight">
-            Нужна помощь ветеринара?
-            Начните консультацию прямо сейчас.
+        <div className="container flex flex-col.items-center text-center">
+          <h2 className="text-3xl font-semibold max-w-2xl leading-tight">
+            Нужна помощь ветеринара? Начните консультацию прямо сейчас.
           </h2>
 
           <p className="text-gray-600 max-w-xl mt-3">
@@ -117,7 +117,9 @@ export default function HomePage() {
           </p>
 
           <div className="mt-6">
-            <BookingModal triggerLabel="Начать консультацию" />
+            <Link href="/booking" className="btn btn-primary">
+              Начать консультацию
+            </Link>
           </div>
         </div>
       </section>
