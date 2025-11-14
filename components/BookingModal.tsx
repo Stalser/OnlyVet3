@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import BookingWidget from "@/components/BookingWidget";
+import BookingWidget from "./BookingWidget";
 
 type BookingModalProps = {
   triggerLabel?: string;
@@ -23,10 +23,10 @@ export default function BookingModal({
       </button>
 
       {open && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+        <div className="fixed inset-0 z-50 flex.items-center justify-center bg-black/40">
           <div className="relative w-full max-w-lg mx-4">
             <div className="rounded-3xl bg-white shadow-xl p-4 sm:p-6">
-              <div className="flex items-start justify-between gap-3.mb-3">
+              <div className="flex.items-start justify-between gap-3 mb-3">
                 <div>
                   <h2 className="text-base sm:text-lg font-semibold">
                     Запись на консультацию
