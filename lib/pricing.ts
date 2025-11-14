@@ -55,7 +55,7 @@ export const servicesPricing: PriceItem[] = [
 export const doctorServicesMap: Record<string, string[]> = {
   "doc-ivanova": ["OC1", "OC2", "OC3"],
   "doc-kuznetsov": ["OC1", "OC2"],
-  "doc-petrov": ["SM1"],
+  "doc-пetrov": ["SM1"],
   "doc-sidorova": ["OC1", "OC3"],
 };
 
