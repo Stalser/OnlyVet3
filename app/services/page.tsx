@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { servicesPricing } from "@/lib/pricing";
+import { servicesPricing } from "../../lib/pricing";
 
 export default function ServicesPage() {
   const [sectionFilter, setSectionFilter] = useState<string | "all">("all");
@@ -41,12 +41,12 @@ export default function ServicesPage() {
           </h1>
           <p className="text-sm text-gray-600 mt-1 max-w-xl">
             Актуальные онлайн-услуги, которые оказывают врачи OnlyVet. В
-            стоимости уже заложены разбор анализов и рекомендации.
+            стоимости уже учтены разбор анализов и рекомендации.
           </p>
         </div>
         <div className="flex flex-col sm:flex-row gap-2 text-xs sm:text-sm">
           <select
-            className="rounded-xl border border-gray-200 px-3 py-2 outline-none focus:border-black focus:ring-1 focus:ring-black bg-white"
+            className="rounded-xl.border border-gray-200 px-3 py-2 outline-none.focus:border-black focus:ring-1 focus:ring-black bg-white"
             value={sectionFilter}
             onChange={(e) => setSectionFilter(e.target.value as any)}
           >
@@ -58,7 +58,7 @@ export default function ServicesPage() {
             ))}
           </select>
           <input
-            className="rounded-xl border border-gray-200 px-3.py-2 outline-none focus:border-black focus:ring-1 focus:ring-black bg-white"
+            className="rounded-xl.border border-gray-200 px-3 py-2 outline-none.focus:border-black focus:ring-1 focus:ring-black bg-white"
             placeholder="Поиск по названию / коду..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
@@ -66,7 +66,7 @@ export default function ServicesPage() {
         </div>
       </div>
 
-      <div className="overflow-x-auto rounded-2xl border border-gray-200 bg-white">
+      <div className="overflow-x-auto rounded-2xl.border.border-gray-200 bg-white">
         <table className="min-w-full text-sm">
           <thead className="bg-gray-50 text-xs text-gray-500">
             <tr>
@@ -79,13 +79,11 @@ export default function ServicesPage() {
           </thead>
           <tbody>
             {filtered.map((s) => (
-              <tr key={s.code} className="border-t border-gray-100">
+              <tr key={s.code} className="border-t.border-gray-100">
                 <td className="px-4 py-2 text-xs text-gray-500">{s.code}</td>
                 <td className="px-4 py-2">{s.name}</td>
-                <td className="px-4.py-2 text-xs text-gray-500">
-                  {s.section}
-                </td>
-                <td className="px-4 py-2 text-xs text-gray-600">
+                <td className="px-4 py-2 text-xs text-gray-500">{s.section}</td>
+                <td className="px-4.py-2 text-xs text-gray-600">
                   {s.description}
                 </td>
                 <td className="px-4 py-2 text-right text-gray-800">
