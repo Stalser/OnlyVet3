@@ -1,36 +1,40 @@
 // lib/doctorSchedule.ts
-// Мок-расписание по врачам. Для живой интеграции замените на данные из Vetmanager.
 
 export type DoctorSlot = {
   id: string;
   doctorId: string;
-  startsAt: string; // ISO
-  endsAt: string;   // ISO
+  date: string; // "2025-11-14"
+  time: string; // "10:00"
 };
 
-const now = Date.now();
-
 export const doctorSlots: DoctorSlot[] = [
-  {
-    id: "slot-1",
-    doctorId: "doc-ivanova",
-    startsAt: new Date(now + 2 * 60 * 60 * 1000).toISOString(),
-    endsAt:   new Date(now + 2.5 * 60 * 60 * 1000).toISOString(),
-  },
-  {
-    id: "slot-2",
-    doctorId: "doc-ivanova",
-    startsAt: new Date(now + 5 * 60 * 60 * 1000).toISOString(),
-    endsAt:   new Date(now + 5.5 * 60 * 60 * 1000).toISOString(),
-  },
-  {
-    id: "slot-3",
-    doctorId: "doc-petrov",
-    startsAt: new Date(now + 3 * 60 * 60 * 1000).toISOString(),
-    endsAt:   new Date(now + 3.5 * 60 * 60 * 1000).toISOString(),
-  },
+  // Иванова
+  { id: "s1", doctorId: "doc-ivanova", date: "2025-11-14", time: "10:00" },
+  { id: "s2", doctorId: "doc-ivanova", date: "2025-11-14", time: "12:00" },
+  { id: "s3", doctorId: "doc-ivanova", date: "2025-11-15", time: "09:30" },
+  { id: "s4", doctorId: "doc-ivanova", date: "2025-11-15", time: "14:00" },
+
+  // Петров
+  { id: "s5", doctorId: "doc-petrov", date: "2025-11-14", time: "13:00" },
+  { id: "s6", doctorId: "doc-petrov", date: "2025-11-15", time: "11:00" },
+
+  // Сидорова
+  { id: "s7", doctorId: "doc-sidorova", date: "2025-11-14", time: "16:00" },
 ];
 
-export function getDoctorSchedule(doctorId: string): DoctorSlot[] {
-  return doctorSlots.filter((s) => s.doctorId === doctorId);
+export function getDoctorDates(doctorId: string): string[] {
+  const set = new Set<string>();
+  doctorSlots
+    .filter((s) => s.doctorId === doctorId)
+    .forEach((s) => set.add(s.date));
+  return Array.from(set).sort();
+}
+
+export function getDoctorSlotsForDate(
+  doctorId: string,
+  date: string
+): DoctorSlot[] {
+  return doctorSlots
+    .filter((s) => s.doctorId === doctorId && s.date === date)
+    .sort((a, b) => (a.time < b.time ? -1 : 1));
 }
