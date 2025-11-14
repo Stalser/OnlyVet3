@@ -1,94 +1,138 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { doctors } from "../lib/data";
-import { servicesPricing, doctorServicesMap } from "../lib/pricing";
-import { doctorSlots } from "../lib/doctorSchedule";
+import {
+  servicesPricing,
+  doctorServicesMap,
+  PriceItem,
+} from "../lib/pricing";
+import {
+  doctorSlots,
+  getDoctorDates,
+  getDoctorSlotsForDate,
+} from "../lib/doctorSchedule";
+
+type Doctor = (typeof doctors)[number];
 
 export default function BookingWidget() {
   const searchParams = useSearchParams();
-  const initialDoctorId = searchParams.get("doctorId") || "";
-  const initialServiceCode = searchParams.get("serviceCode") || "";
+  const initialDoctorId = searchParams.get("doctor") || "";
+  const initialServiceCode = searchParams.get("service") || "";
 
   const [doctorId, setDoctorId] = useState(initialDoctorId);
   const [serviceCode, setServiceCode] = useState(initialServiceCode);
+  const [date, setDate] = useState("");
   const [slotId, setSlotId] = useState("");
   const [petName, setPetName] = useState("");
+  const [email, setEmail] = useState("");
   const [contact, setContact] = useState("");
   const [comment, setComment] = useState("");
+  const [agreePersonal, setAgreePersonal] = useState(false);
+  const [agreeContract, setAgreeContract] = useState(false);
   const [sending, setSending] = useState(false);
   const [result, setResult] = useState<string | null>(null);
 
-  const selectedService = useMemo(
-    () => servicesPricing.find((s) => s.code === serviceCode),
-    [serviceCode]
+  const selectedDoctor: Doctor | undefined = useMemo(
+    () => doctors.find((d) => d.id === doctorId),
+    [doctorId]
   );
 
-  const servicesForDoctor = useMemo(() => {
+  const allowedServices: PriceItem[] = useMemo(() => {
     if (!doctorId) return servicesPricing;
     const codes = doctorServicesMap[doctorId] || [];
     return servicesPricing.filter((s) => codes.includes(s.code));
   }, [doctorId]);
 
-  const doctorsForService = useMemo(() => {
-    if (!serviceCode) return doctors;
-    return doctors.filter((d) => {
-      const codes = doctorServicesMap[d.id] || [];
-      return codes.includes(serviceCode);
-    });
-  }, [serviceCode]);
+  const selectedService = useMemo(
+    () => allowedServices.find((s) => s.code === serviceCode),
+    [allowedServices, serviceCode]
+  );
 
-  const slotsForDoctor = useMemo(() => {
-    if (!doctorId) return [];
-    return doctorSlots.filter((s) => s.doctorId === doctorId);
+  const availableDates = useMemo(() => {
+    if (!doctorId) return [] as string[];
+    return getDoctorDates(doctorId);
   }, [doctorId]);
 
-  const handleSubmit = async () => {
+  const dateSlots = useMemo(() => {
+    if (!doctorId || !date) return [] as typeof doctorSlots;
+    return getDoctorSlotsForDate(doctorId, date);
+  }, [doctorId, date]);
+
+  const canSubmit =
+    !!doctorId &&
+    !!serviceCode &&
+    !!date &&
+    !!slotId &&
+    petName.trim() &&
+    email.trim() &&
+    contact.trim() &&
+    agreePersonal &&
+    agreeContract &&
+    !sending;
+
+  function handleDoctorChange(id: string) {
+    setDoctorId(id);
+    setDate("");
+    setSlotId("");
+    // если выбранная услуга не подходит этому врачу — сбрасываем
+    if (serviceCode && doctorServicesMap[id]) {
+      const codes = doctorServicesMap[id];
+      if (!codes.includes(serviceCode)) {
+        setServiceCode("");
+      }
+    }
+  }
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!canSubmit) return;
+
     setSending(true);
     setResult(null);
+
     try {
+      // здесь потом будет реальный запрос в БД / Vetmanager
       await new Promise((resolve) => setTimeout(resolve, 800));
-      setResult("Заявка отправлена. Мы свяжемся с вами для подтверждения.");
+      setResult(
+        "Запрос отправлен. Администратор свяжется с вами для подтверждения времени."
+      );
       setPetName("");
+      setEmail("");
       setContact("");
       setComment("");
       setSlotId("");
+      setDate("");
     } catch {
-      setResult("Не удалось отправить заявку. Попробуйте ещё раз.");
+      setResult("Не удалось отправить запрос. Попробуйте ещё раз.");
     } finally {
       setSending(false);
     }
-  };
-
-  const canSubmit =
-    !sending &&
-    !!doctorId &&
-    !!serviceCode &&
-    !!slotId &&
-    petName.trim() &&
-    contact.trim();
+  }
 
   return (
-    <div className="rounded-2xl border border-gray-200 bg-white p-4 text-sm text-gray-800 space-y-4">
-      <h2 className="font-medium mb-1 text-base">Запись на консультацию</h2>
-      <p className="text-xs text-gray-500">
-        Выберите врача, услугу и удобное время. Запрос придёт администратору.
-      </p>
-
-      {/* Врач */}
+    <form onSubmit={handleSubmit} className="space-y-4 text-sm text-gray-800">
       <div className="space-y-1">
-        <label className="block text-xs font-medium text-gray-700">Врач</label>
+        <h2 className="font-semibold text-base">Запись на консультацию</h2>
+        <p className="text-xs text-gray-500">
+          Опишите проблему, выберите врача, услугу и удобное время — запрос
+          уйдёт администратору.
+        </p>
+      </div>
+
+      {/* ВРАЧ */}
+      <div className="space-y-1">
+        <label className="block text-xs font-medium text-gray-700">
+          Врач
+        </label>
         <select
           className="w-full rounded-xl border border-gray-200 px-3 py-2 text-xs outline-none focus:border-black focus:ring-1 focus:ring-black bg-white"
           value={doctorId}
-          onChange={(e) => {
-            setDoctorId(e.target.value);
-            setSlotId("");
-          }}
+          onChange={(e) => handleDoctorChange(e.target.value)}
         >
           <option value="">Любой врач</option>
-          {doctorsForService.map((d) => (
+          {doctors.map((d) => (
             <option key={d.id} value={d.id}>
               {d.name} — {d.speciality}
             </option>
@@ -96,19 +140,23 @@ export default function BookingWidget() {
         </select>
       </div>
 
-      {/* Услуга */}
+      {/* УСЛУГА */}
       <div className="space-y-1">
-        <label className="block text-xs font-medium text-gray-700">Услуга</label>
+        <label className="block text-xs font-medium text-gray-700">
+          Услуга
+        </label>
         <select
           className="w-full rounded-xl border border-gray-200 px-3 py-2 text-xs outline-none focus:border-black focus:ring-1 focus:ring-black bg-white"
           value={serviceCode}
           onChange={(e) => setServiceCode(e.target.value)}
         >
           <option value="">Выберите услугу</option>
-          {servicesForDoctor.map((s) => (
+          {allowedServices.map((s) => (
             <option key={s.code} value={s.code}>
               {s.name}
-              {s.priceRUB ? ` — ${s.priceRUB.toLocaleString("ru-RU")} ₽` : ""}
+              {s.priceRUB
+                ? ` — ${s.priceRUB.toLocaleString("ru-RU")} ₽`
+                : ""}
             </option>
           ))}
         </select>
@@ -119,40 +167,76 @@ export default function BookingWidget() {
         )}
       </div>
 
-      {/* Время */}
+      {/* ДАТА */}
       <div className="space-y-1">
-        <label className="block text-xs font-medium text-gray-700">Время</label>
+        <label className="block text-xs font-medium text-gray-700">
+          Дата
+        </label>
         {doctorId ? (
-          <div className="flex flex-wrap gap-2">
-            {slotsForDoctor.map((slot) => (
-              <button
-                key={slot.id}
-                type="button"
-                onClick={() => setSlotId(slot.id)}
-                className={[
-                  "px-3 py-1 rounded-xl border text-xs",
-                  slotId === slot.id
-                    ? "border-black bg-black text-white"
-                    : "border-gray-200 bg-white text-gray-700",
-                ].join(" ")}
-              >
-                {slot.startsAt.slice(0, 16).replace("T", " ")}
-              </button>
-            ))}
-            {!slotsForDoctor.length && (
-              <p className="text-[11px] text-gray-500">
-                Для выбранного врача пока нет слотов.
-              </p>
-            )}
-          </div>
+          availableDates.length ? (
+            <select
+              className="w-full rounded-xl border border-gray-200 px-3 py-2 text-xs outline-none focus:border-black focus:ring-1 focus:ring-black bg-white"
+              value={date}
+              onChange={(e) => {
+                setDate(e.target.value);
+                setSlotId("");
+              }}
+            >
+              <option value="">Выберите дату</option>
+              {availableDates.map((d) => (
+                <option key={d} value={d}>
+                  {new Date(d).toLocaleDateString("ru-RU", {
+                    weekday: "short",
+                    day: "numeric",
+                    month: "long",
+                  })}
+                </option>
+              ))}
+            </select>
+          ) : (
+            <p className="text-[11px] text-gray-500">
+              Для выбранного врача пока нет свободных дат.
+            </p>
+          )
         ) : (
           <p className="text-[11px] text-gray-500">
-            Сначала выберите врача — затем появятся свободные слоты.
+            Сначала выберите врача — затем появятся доступные даты.
           </p>
         )}
       </div>
 
-      {/* Данные пациента */}
+      {/* ВРЕМЯ */}
+      <div className="space-y-1">
+        <label className="block text-xs font-medium text-gray-700">
+          Время
+        </label>
+        {doctorId && date ? (
+          dateSlots.length ? (
+            <select
+              className="w-full rounded-xl border border-gray-200 px-3 py-2 text-xs outline-none focus:border-black focus:ring-1 focus:ring-black bg-white"
+              value={slotId}
+              onChange={(e) => setSlotId(e.target.value)}
+            >
+              <option value="">Выберите время</option>
+              {dateSlots.map((s) => (
+                <option key={s.id} value={s.id}>
+                  {s.time}
+                </option>
+              ))}
+            </select>
+          ) : (
+            <p className="text-[11px] text-gray-500">
+              На выбранную дату нет свободных слотов.
+            </p>
+          )
+        ) : (
+          <p className="text-[11px] text-gray-500">
+            Сначала выберите врача и дату.
+          </p>
+        )}
+      </div>
+
+      {/* ДАННЫЕ ПАЦИЕНТА */}
       <div className="grid gap-3">
         <div className="space-y-1">
           <label className="block text-xs font-medium text-gray-700">
@@ -165,23 +249,38 @@ export default function BookingWidget() {
             placeholder="Например, Мурзик"
           />
         </div>
+
+        <div className="space-y-1">
+          <label className="block text-xs font-medium text-gray-700">
+            Email
+          </label>
+          <input
+            type="email"
+            className="w-full rounded-xl border border-gray-200 px-3 py-2 text-xs outline-none focus:border-black focus:ring-1 focus:ring-black"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="you@example.com"
+          />
+        </div>
+
         <div className="space-y-1">
           <label className="block text-xs font-medium text-gray-700">
             Контакт для связи
           </label>
           <input
-            className="w-full rounded-xl border border-gray-200 px-3 py-2 text-xs outline-none focus:border-black focus:ring-1 focus:ring-black"
+            className="w-full rounded-xl border border-gray-200 px-3.py-2 text-xs outline-none focus:border-black focus:ring-1 focus:ring-black"
             value={contact}
             onChange={(e) => setContact(e.target.value)}
             placeholder="Телефон или Telegram"
           />
         </div>
+
         <div className="space-y-1">
           <label className="block text-xs font-medium text-gray-700">
             Комментарий
           </label>
           <textarea
-            className="w-full rounded-xl border border-gray-200 px-3 py-2 text-xs outline-none focus:border-black focus:ring-1 focus:ring-black min-h-[60px]"
+            className="w-full rounded-xl border border-gray-200 px-3.py-2 text-xs outline-none focus:border-black focus:ring-1 focus:ring-black min-h-[60px]"
             value={comment}
             onChange={(e) => setComment(e.target.value)}
             placeholder="Кратко опишите проблему, ранее поставленные диагнозы..."
@@ -189,19 +288,60 @@ export default function BookingWidget() {
         </div>
       </div>
 
+      {/* ГАЛОЧКИ */}
+      <div className="space-y-2 text-[11px] text-gray-600">
+        <label className="flex items-start gap-2">
+          <input
+            type="checkbox"
+            checked={agreePersonal}
+            onChange={(e) => setAgreePersonal(e.target.checked)}
+            className="mt-0.5"
+          />
+          <span>
+            Согласен(на) на обработку персональных данных согласно{" "}
+            <a
+              href="/docs"
+              className="text-blue-600 underline underline-offset-2"
+            >
+              политике конфиденциальности
+            </a>
+            .
+          </span>
+        </label>
+
+        <label className="flex items-start gap-2">
+          <input
+            type="checkbox"
+            checked={agreeContract}
+            onChange={(e) => setAgreeContract(e.target.checked)}
+            className="mt-0.5"
+          />
+          <span>
+            Записываясь на консультацию, подтверждаю, что ознакомлен(а) с{" "}
+            <a
+              href="/docs"
+              className="text-blue-600 underline underline-offset-2"
+            >
+              договором на оказание услуг
+            </a>
+            .
+          </span>
+        </label>
+      </div>
+
       {result && (
-        <div className="rounded-xl bg-emerald-50 px-3 py-2 text-xs text-emerald-700">
+        <div className="rounded-xl bg-emerald-50 px-3 py-2 text-[11px] text-emerald-700">
           {result}
         </div>
       )}
 
       <button
-        className="w-full rounded-xl bg-black text-white text-sm font-medium py-2.5 mt-1 disabled:opacity-50"
+        type="submit"
         disabled={!canSubmit}
-        onClick={handleSubmit}
+        className="w-full rounded-xl bg-black text-white text-sm font-medium py-2.5 mt-2 disabled:opacity-40"
       >
         {sending ? "Отправляем..." : "Записаться"}
       </button>
-    </div>
+    </form>
   );
 }
