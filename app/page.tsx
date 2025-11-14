@@ -61,7 +61,7 @@ export default function HomePage() {
               </p>
             </div>
 
-            <div className="rounded-2xl bg-white p-6.shadow-sm border border-gray-100">
+            <div className="rounded-2xl bg-white p-6 shadow-sm border border-gray-100">
               <h3 className="font-semibold text-lg mb-2">Разбор анализов</h3>
               <p className="text-sm text-gray-600">
                 Загрузите фото анализов, врач подробно объяснит результаты
@@ -69,9 +69,9 @@ export default function HomePage() {
               </p>
             </div>
 
-            <div className="rounded-2xl bg-white p-6.shadow-sm border border-gray-100">
-              <h3 className="font-semibold text-lg.mb-2">Второе мнение</h3>
-              <p className="text-sm text-gray-600">
+            <div className="rounded-2xl bg-white p-6 shadow-sm border border-gray-100">
+              <h3 className="font-semibold.text-lg mb-2">Второе мнение</h3>
+              <p className="text-sm.text-gray-600">
                 Подтверждение диагноза, подбор лечения, оценка УЗИ/рентгена,
                 разбор сложных случаев.
               </p>
@@ -105,7 +105,7 @@ export default function HomePage() {
 
       {/* НИЖНИЙ CTA */}
       <section className="bg-white py-20">
-        <div className="container flex flex-col items-center.text-center">
+        <div className="container flex flex-col items-center text-center">
           <h2 className="text-3xl font-semibold max-w-2xl.leading-tight">
             Нужна помощь ветеринара?
             Начните консультацию прямо сейчас.
@@ -117,7 +117,7 @@ export default function HomePage() {
           </p>
 
           <div className="mt-6">
-            <BookingModal.triggerLabel="Начать консультацию" />
+            <BookingModal triggerLabel="Начать консультацию" />
           </div>
         </div>
       </section>
