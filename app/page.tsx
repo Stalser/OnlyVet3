@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Doctors from "../components/Doctors";
+import ReviewsHome from "../components/ReviewsHome";
 
 export default function HomePage() {
   return (
